@@ -15,12 +15,7 @@ public class EmployeeService {
 	private EmployeeRepository  employeeRepo;
 	
 	public Employee saveEmployee(Employee employee) {
-		  if (employeeRepository.existsByUsername(employee.getUsername())) {
-	            throw new RuntimeException("Username already exists");
-	        }
-
-	        // Encode password before saving
-	        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+		  
 
 	        // Save employee to DB
 	        return employeeRepo.save(employee);
