@@ -1,6 +1,8 @@
 package com.epdms.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 @Entity
 public class Product {
 	@Id
@@ -12,7 +14,7 @@ public class Product {
     private double price;
     @Embedded
     private Location location;
-    
+
 	public String getSerialId() {
 		return serialId;
 	}
@@ -69,5 +71,5 @@ public class Product {
 	public Product() {
 		super();
 	}
-    
+
 }

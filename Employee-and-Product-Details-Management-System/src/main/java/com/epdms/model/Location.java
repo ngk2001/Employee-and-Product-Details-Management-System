@@ -26,7 +26,7 @@ public class Location {
 	public Location() {
 		super();
 	}
-	
-	
+
+
 
 }

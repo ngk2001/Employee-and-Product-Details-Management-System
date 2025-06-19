@@ -1,15 +1,22 @@
 package com.epdms.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 
 @Entity
 public class Employee {
 	@Id
 	private int id;
-	@Column(unique=true)
+	@Column(unique=true, nullable = false)
 	private String username;
+	@Column(nullable = false)
 	private String password;
+	@Column(nullable = false)
 	private String branch;
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	public int getId() {

@@ -15,19 +15,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epdms.model.Employee;
+import com.epdms.model.Product;
 import com.epdms.service.EmployeeService;
+import com.epdms.service.ProductService;
 
 @RestController
-@RequestMapping("/epdms/employee")
-public class EmployeeController {
+@RequestMapping("/epdms/manager")
+public class ManagerController {
 
 	@Autowired
 	private EmployeeService employeeService;
-	
+	@Autowired
+	private ProductService productService; 
+
 	@PostMapping("/registerEmployee")
-	public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee){
+	public ResponseEntity<Employee> registerEmployee(@RequestBody Employee employee){
 		return ResponseEntity.ok(employeeService.saveEmployee(employee));
 	}
+
+
 	@GetMapping("/id/{id}")
 	public ResponseEntity<?> getEmployee(@PathVariable int id){
 		try {
@@ -50,19 +56,36 @@ public class EmployeeController {
 	public List<Employee> getAllEmployees(){
 		return employeeService.getAll();
 	}
-	
+
 	@DeleteMapping("/deleteEmployee/{id}")
 		public ResponseEntity<String> deleteEmployee(@PathVariable int id){
-		
+
 		if(employeeService.deleteById(id)) {
 			return ResponseEntity.ok("Employee detail Deleted Sucessfully");
 		}else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("given id of employee did not match to anyone");
 		}
 	}
-	@PutMapping("/modify")
+	@PutMapping("/modifyEmployee")
 	public ResponseEntity<?> modifyEmployee(@RequestBody Employee employee){
 		return ResponseEntity.ok(employeeService.saveEmployee(employee));
 	}
 	
+	  @PostMapping("/saveProduct")
+	    public ResponseEntity<List<Product>> addProducts(@RequestBody List<Product> products) {
+	        return ResponseEntity.ok(productService.saveProduct(products));
+	    }
+
+	    @DeleteMapping("delete/{serialId}")
+	    public ResponseEntity<String> deleteProduct(@PathVariable String serialId) {
+	        boolean deleted = productService.deleteBySerialId(serialId);
+	        return deleted ? ResponseEntity.ok("Product deleted")
+	                       : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+	    }
+	    @PutMapping("/update")
+	    public ResponseEntity<?> updateProduct(@RequestBody Product product){
+	    	return ResponseEntity.ok(productService.updateProduct(product));
+	    }
+
+
 }

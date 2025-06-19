@@ -3,7 +3,6 @@ package com.epdms.service;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import com.epdms.repository.ProductRepository;
 public class ProductService {
 
 	@Autowired
-	private ProductRepository productRepo; 
+	private ProductRepository productRepo;
 
 
 	public Product getBySerialId(String serialId) {
@@ -35,7 +34,7 @@ public class ProductService {
 		}
 		return products;
 	}
-	
+
 
 	public List<Product> getProductsByBranchAndDrawName(String branch, String drawName) {
 		List<Product> products = productRepo.findAllByLocationBranchAndLocationDrawName(branch, drawName);
@@ -44,15 +43,15 @@ public class ProductService {
 		}
 		return products;
 	}
-	
+
 	public List<Product> getAll(){
 		return productRepo.findAll();
 	}
-	
+
 	public List<Product> saveProduct(List<Product> product){
 		return productRepo.saveAll(product);
 	}
-	
+
 	public boolean deleteBySerialId(String serialId){
 		if(productRepo.existsById(serialId)) {
 			productRepo.deleteById(serialId);
